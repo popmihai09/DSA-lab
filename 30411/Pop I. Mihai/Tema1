@@ -1,0 +1,142 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
+
+
+typedef struct modc{
+int code;
+struct node* next;
+}NodeT;
+
+NodeT *head,*tail;
+
+void AF(int code)
+{
+    if(head==NULL)
+    {
+        head=(NodeT*)malloc(sizeof(NodeT*));
+        head->code=code;
+        head->next=NULL;
+    }
+    else if(tail==NULL)
+    {
+        tail=head;
+        NodeT*p=(NodeT*)malloc(sizeof(NodeT*));
+        p->code=code;
+        p->next=head;
+        head=p;
+    }
+    else
+    {
+        NodeT*p=(NodeT*)malloc(sizeof(NodeT*));
+        p->code=code;
+        p->next=head;
+        head=p;
+    }
+
+}
+
+void AL(int code)
+{
+            if(head==NULL)
+                {
+                head=(NodeT*)malloc(sizeof(NodeT*));
+                head->code=code;
+                head->next=NULL;
+                tail=head;
+                }
+            else
+                {
+                NodeT*q=(NodeT*)malloc(sizeof(NodeT*));
+                tail->next=q;
+                tail=q;
+                }
+}
+
+void DF()
+{
+    NodeT* *remove_node;
+            if(head==NULL)
+            {
+                return;
+            }
+            else
+            {
+
+                remove_node=head;
+                if(head==tail)
+                {
+                    head=NULL;
+                    tail=NULL;
+                }
+                else
+                {
+                    head=head->next;
+                }
+                remove_node=NULL;
+            }
+}
+
+void DL()
+{
+    NodeT* *remove_node;
+    if (head==NULL)
+        return;
+    else
+        remove_node=tail;
+    if (head==tail)
+    {
+        head=NULL;
+        tail=NULL;
+    }
+    else
+        {
+        NodeT* *ptotail=head;
+        while (head->next !=tail)
+        head=head->next;
+        tail=head;
+        tail->next=NULL;
+        head=ptotail;
+        }
+    remove_node=NULL;
+}
+
+void DOOM_THE_LIST()
+{
+    if(head==NULL)
+        return NULL;
+    else
+    {
+    while(head!=tail)
+    {
+        free(head);
+        head=head->next;
+    }
+    }
+
+}
+
+void PRINT_ALL()
+{
+    NodeT* aux=head;
+    while (aux!=NULL)
+    {
+        printf("%d ",aux->code);
+        aux=aux->next;
+    }
+}
+
+int main()
+{
+
+    AL(12);
+    AF(5);
+    AF(6);
+    AF(21);
+    DF();
+    DL();
+    DOOM_THE_LIST();
+    PRINT_ALL();
+
+    return 0;
+}
